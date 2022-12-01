@@ -1,3 +1,5 @@
+import * as dotenv from "dotenv";
+dotenv.config({ path: "../.env" });
 import express from "express";
 import bodyParser from "body-parser";
 import mongoose from "mongoose";
@@ -12,13 +14,8 @@ app.use(cors());
 const PORT = process.env.PORT || 5000;
 
 mongoose
-  .connect(process.env.MONGO_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
+  .connect(process.env.MONGO_URI)
   .then(() =>
     app.listen(PORT, () => console.log(`Server running on port: ${PORT}`))
   )
   .catch((error) => console.log(error.message));
-
-mongoose.set("useFindAndModify", false);
